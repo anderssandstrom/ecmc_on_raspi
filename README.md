@@ -101,10 +101,10 @@ $ bash e3.bash -ce load
 # NOTE: Need to upgrade ecmc.Makefile with linux-arm (in r-pi-dev branch of icshwi/e3-ecmc)
 
 ```
-NOTE: If trouble. On a recent release of e3 there are an "bug" i a make file.
-Please see e3-slack.
-Basically you need to edit teh file require/configure/RULES_E3
-find "module_name_check" and comment the tree rows after with "#" 
+NOTE: If trouble. On a recent release of e3 there's a "bug" i a makefile. The error message is something like: "module name needs to be lower case..."
+Please see slack e3 channel.
+Basically you need to edit the file require/configure/RULES_E3
+find "module_name_check" and comment the tree rows after with "#"
 
 
 ### python matplot lib working. Also see conda.txt in WIP dir
@@ -166,17 +166,18 @@ echo "EPICS_MODULE_TAG:=53ce5e56d511" > configure/CONFIG_MODULE.local
 
 Then the normal workflow works
 
-### E3
-bash e3.bash mod sometimes fail depending on e3 verions.
+### E3 (module name needs to be lower case error..)
+bash e3.bash mod sometimes fail depending on e3 version.
 
-NOTE: If trouble. On a recent release of e3 there are an "bug" i a make file.
-Please see e3-slack.
-Basically you need to edit teh file require/configure/RULES_E3
+NOTE: If trouble. On a recent release of e3 there's a "bug" i a makefile. The error message is something like: "module name needs to be lower case..."
+Please see slack e3 channel.
+Basically you need to edit the file require/configure/RULES_E3
 find "module_name_check" and comment the tree rows after with "#"
 
 The reason is that make default shell on raspi and debian is sh but on centos sh is linked to bash.
 The redirection to NULL in module_name_check only works for bash.
 probably e3 team will update.
+
 
 ## Below is not working but good to keep for reference change of raspi kernel and install sources
 
