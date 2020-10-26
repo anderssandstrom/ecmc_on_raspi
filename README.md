@@ -97,12 +97,22 @@ Please see slack e3 channel.
 Basically you need to edit the file require/configure/RULES_E3
 find "module_name_check" and comment the tree rows after with "#"
 
-### python matplot lib working. Also see conda.txt in WIP dir. Probably better than the below
-```bash
-$ pip install matplotlib==2.0.2
-$ sudo apt-get install python-gi-cairo
-$ pip install pyepics
-$ sudo apt-get update
+### python matplot lib working. Also see conda.txt in WIP dir. 
+Python for use with ecmccomgui (pyqt) is best handled through conda and the instructions in conda.txt.
+
+See: https://github.com/jjhelmus/berryconda
+
+```
+#Setup partly virtuel environment..
+conda create --name ecmccomgui_py35 python=3.5
+source activate ecmccomgui_py35
+conda install -c tballance pyqt5
+conda install -c "rpi"  numpy
+#conda install -c "GSECARS"  pyepics  # FAIL need py3.6
+pip install pyepics
+pip install pyqtgraph
+conda install -c rpi scipy
+pip install matplotlib
 ```
 
 ## Issues
