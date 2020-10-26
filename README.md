@@ -118,6 +118,14 @@ pip install matplotlib
 ```
 Follow instructions in https://github.com/anderssandstrom/ecmccomgui/blob/master/README_gui.md
 
+## ecmc Raspi GPIO plugin:
+The ecmc raspi plugin can be used to control raspi GPIO from ecmc plc code.
+The plugin can be found here (check out the readme):
+https://github.com/anderssandstrom/e3-ecmcPlugin_RasPi
+
+An small example on how to use can be found here:
+https://github.com/icshwi/ecmccfg/blob/master/examples/mcu1021_coupler/mcu1021_coupler_plugins.script
+
 ## Issues
 
 ### TCL 
