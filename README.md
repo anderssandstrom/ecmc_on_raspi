@@ -1,4 +1,4 @@
-# ecmc_on_raspi
+# Install instructions: ecmc and etherlab on raspberry pi 4b
 
 ## Install from scratch: choose default when install raspian (from boot)
 
@@ -167,6 +167,10 @@ find "module_name_check" and comment the tree rows after with "#"
 The reason is that make default shell on raspi and debian is sh but on centos sh is linked to bash.
 The redirection to NULL in module_name_check only works for bash.
 probably e3 team will update.
+
+## RT- Kernel
+Some notes on how to install RT kernel is found in WIP dir. RT kernel 4.? install was successfull.
+However, etherlab install still fails.
 
 
 ## Below is not working but good to keep for reference change of raspi kernel and install sources
