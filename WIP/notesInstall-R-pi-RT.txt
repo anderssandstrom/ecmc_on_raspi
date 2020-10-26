@@ -1,0 +1,104 @@
+#Install RT- patch notes. Also see pdf in this dir
+
+# Follow these steps on a x86 computer
+~$ mkdir ~/rpi-kernel
+~$ cd ~/rpi-kernel 
+~rpi-kernel$ mkdir rt-kernel
+
+~/rpi-kernel$ git clone https://github.com/raspberrypi/linux.git -b rpi-4.19.y-rt
+~/rpi-kernel$ git clone https://github.com/raspberrypi/tools.git
+
+~/rpi-kernel$ export ARCH=arm
+~/rpi-kernel$ export CROSS_COMPILE=~/rpi-kernel/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf-
+~/rpi-kernel$ export INSTALL_MOD_PATH=~/rpi-kernel/rt-kernel
+~/rpi-kernel$ export INSTALL_DTBS_PATH=~/rpi-kernel/rt-kernel
+
+~/rpi-kernel$ export KERNEL=kernel7l
+~/rpi-kernel$ cd ~/rpi-kernel/linux/
+~/rpi-kernel/linux/$ make bcm2711_defconfig
+
+~/rpi-kernel/linux$ make -j4 zImage 
+~/rpi-kernel/linux$ make -j4 modules 
+~/rpi-kernel/linux$ make -j4 dtbs 
+~/rpi-kernel/linux$ make -j4 modules_install 
+~/rpi-kernel/linux$ make -j4 dtbs_install
+# Note DEPMOD  4.19.59-rt23-v7l+
+
+~/rpi-kernel/linux$ mkdir $INSTALL_MOD_PATH/boot
+~/rpi-kernel/linux$ ./scripts/mkknlimg ./arch/arm/boot/zImage $INSTALL_MOD_PATH/boot/$KERNEL.img
+~/rpi-kernel/linux$ cd $INSTALL_MOD_PATH/boot
+~/rpi-kernel/rt-kernel/boot$ mv $KERNEL.img kernel7_rt.img
+
+~/rpi-kernel/linux$ cd $INSTALL_MOD_PATH
+~/rpi-kernel/rt-kernel$ tar czf ../rt-kernel.tgz *
+
+# Copy to RPI
+~/rpi-kernel/rt-kernel$ cd ..
+~/rpi-kernel$ scp rt-kernel.tgz pi@<ipaddress>:/tmp
+
+
+# STEPS on RASPI:
+~$ cd /tmp
+/tmp$ tar xzf rt-kernel.tgz
+/tmp$ cd boot
+/tmp/boot$ sudo cp -rd * /boot/
+/tmp/boot$ cd ../lib
+/tmp/lib$ sudo cp -dr * /lib/
+/tmp/lib$ cd ../overlays
+/tmp/overlays$ sudo cp -d * /boot/overlays
+/tmp/overlays$ cd ..
+/tmp$ sudo cp -d bcm* /boot/
+
+#Add the following entry to /boot/config.txt:
+
+# Add the following option:
+kernel=kernel7_rt.img
+
+#reboot
+
+# Linux sources needed for etherlab (takes time...)
+# get sources (see https://lemariva.com/blog/2019/09/raspberry-pi-4b-preempt-rt-kernel-419y-performance-test)
+cd
+cd sources
+git clone https://github.com/raspberrypi/linux.git -b rpi-4.19.y-rt linux-src
+cd linux-src
+sudo apt install bison flex
+export KERNEL=kernel7l  
+export ARCH=arm
+# configure sorces
+make bcm2711_defconfig
+#compile unfortenately seems needed (otherwise etherlab build fails with error meassage configure: error: Failed to extract Linux kernel version!).. slow..
+# some info here https://github.com/Beckhoff/CX9020/issues/7
+make -j4 zImage 
+make headers_install ARCH=arm INSTALL_HDR_PATH=/usr
+
+#etherlab install
+#add option to configure. Add in ethercatmaster.local (or other file)
+E3_ETHERLAB_CONF_OPTIONS+=--with-linux-dir=/home/pi/sources/linux-src/
+
+
+
+
+# Add source for for dkms_build in etherlabmaster/etherlab-code/etherlabmaster.Makefile
+$(DKMS) build --kernelsourcedir=/home/pi/sources/linux-src -m $(E3_MODULE_NAME) -v $(E3_MODULE_VERSION)
+
+
+
+
+#######BELOW DID NOT WORK
+
+# Kernel Headers DID NOT WORK
+cd ~/rpi-kernel
+mkdir rt-headers
+cd ~/rpi-kernel/linux
+~/rpi-kernel/linux$ make headers_install ARCH=arm INSTALL_HDR_PATH=~${HOME}/rpi-kernel/rt-headers
+
+# Copy headers
+scp -r rt-headers pi@<ipaddress>:/tmp
+
+
+# Copy headers DID not work!!
+cd /tmp/rt-headers
+sudo mkdir /usr/src/linux-headers-4.19.71-rt24-v7l+
+cp linux/* /usr/src/linux-headers-4.19.71-rt24-v7l+
+sudo cp -r include /usr/src/linux-headers-4.19.71-rt24-v7l+/
