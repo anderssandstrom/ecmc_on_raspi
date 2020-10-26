@@ -102,7 +102,7 @@ find "module_name_check" and comment the tree rows after with "#"
 See: https://github.com/anderssandstrom/ecmccomgui
 Python for use with ecmccomgui (pyqt) is best handled through conda and the instructions in conda.txt.
 
-See: https://github.com/jjhelmus/berryconda
+Download berry conda from (read readme): https://github.com/jjhelmus/berryconda
 
 ```
 #Setup partly virtuel environment..
