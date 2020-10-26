@@ -172,6 +172,11 @@ probably e3 team will update.
 Some notes on how to install RT kernel is found in WIP dir. RT kernel 4.? install was successfull.
 However, etherlab install still fails.
 
+## Install with script
+the install_raspi.bash can be used but is not completelly up to date. So follow readme above.
+```bash
+$ bash install_raspi.bash
+```
 
 ## Below is not working but good to keep for reference change of raspi kernel and install sources
 
