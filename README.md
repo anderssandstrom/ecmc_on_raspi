@@ -39,18 +39,12 @@ $ make build
 $ make install
 # probably not needed: $ make modules
 # Ensure check so files are in /opt/etherlab/ maybe "make modules" is needed?! seems sometimes "make install" fails??
-
 $ echo "ETHERCAT_MASTER0=eth0" > ethercatmaster.local
-
-# NOTE: add raspian to scripts/etherlab_setup.bash and script/etherlab_setup_clean.bash (in r-pi-dev branch of icshwi/etherlabmaster)
-
 $ make dkms_add
 $ make dkms_build
 $ make dkms_install
 $ make setup
-
 $ sudo systemctl start ethercat
-
 ```
 
 ### install etherlab master on kernel 5.*
@@ -63,15 +57,15 @@ $ cd etherlabmaster
 #       needs to be atleast commit  53ce5e56d511
 
 $ echo "EPICS_MODULE_TAG:=53ce5e56d511" > configure/CONFIG_MODULE.local
-
 $ make init
 
 # !!!!!!IMPORTANT TSC not availbe in ARM (Set ENABLE_CYCLES=NO)!!!!!!! 
-
 $ echo "ENABLE_CYCLES = NO" > configure/CONFIG_OPTIONS.local
+
 $ make build
 $ make install
 # probably not needed: $ make modules
+
 # Ensure check so files are in /opt/etherlab/ maybe "make modules" is needed?! seems sometimes "make install" fails??
 
 $ echo "ETHERCAT_MASTER0=eth0" > ethercatmaster.local
@@ -97,17 +91,13 @@ $ bash e3.bash req
 # note  etherlab master needs to be installed before ecmc
 $ bash e3.bash -ce mod
 $ bash e3.bash -ce load
-
-# NOTE: Need to upgrade ecmc.Makefile with linux-arm (in r-pi-dev branch of icshwi/e3-ecmc)
-
 ```
 NOTE: If trouble. On a recent release of e3 there's a "bug" i a makefile. The error message is something like: "module name needs to be lower case..."
 Please see slack e3 channel.
 Basically you need to edit the file require/configure/RULES_E3
 find "module_name_check" and comment the tree rows after with "#"
 
-
-### python matplot lib working. Also see conda.txt in WIP dir
+### python matplot lib working. Also see conda.txt in WIP dir. Probably better than the below
 ```bash
 $ pip install matplotlib==2.0.2
 $ sudo apt-get install python-gi-cairo
