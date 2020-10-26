@@ -97,7 +97,9 @@ Please see slack e3 channel.
 Basically you need to edit the file require/configure/RULES_E3
 find "module_name_check" and comment the tree rows after with "#"
 
-### python matplot lib working. Also see conda.txt in WIP dir. 
+### Python partly via conda for ecmccomgui
+
+See: https://github.com/anderssandstrom/ecmccomgui
 Python for use with ecmccomgui (pyqt) is best handled through conda and the instructions in conda.txt.
 
 See: https://github.com/jjhelmus/berryconda
@@ -114,6 +116,7 @@ pip install pyqtgraph
 conda install -c rpi scipy
 pip install matplotlib
 ```
+Follow instructions in https://github.com/anderssandstrom/ecmccomgui/blob/master/README_gui.md
 
 ## Issues
 
