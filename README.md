@@ -43,7 +43,7 @@ $ ls /usr/src/linux-headers-$(uname -r)
 $ ls /lib/modules/$(uname -r)
 
 ```
-#if "No such file or directroy" for any of the two ls commands then try:
+if "No such file or directroy" for any of the two ls commands then try:
 
 1. upgrade your raspi and reinstall headers:
 ```bash
