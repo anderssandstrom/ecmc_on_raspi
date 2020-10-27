@@ -53,7 +53,13 @@ $ sudo apt install raspberrypi-kernel-headers
 ```
 If headers match then skip next steps.
 
-2. If existing version is rather similar to the headers in the two dirs, then try to make soft links and use the "wrong" version of headers.
+2. Check if correct header package is available:
+```bash
+$ sudo apt list linux-headers-*
+```
+Install if found..
+
+3. If existing version is rather similar to the headers in the two dirs, then try to make soft links and use the "wrong" version of headers.
 
 ```bash
 $ cd /usr/src/
@@ -63,11 +69,11 @@ $ ln -s <the version you have> $(uname -r)
 ```
 If make build of etherlab succeeds then skip next step.
 
-3. If you have uname -r = 5.4.51-v7l+ then you can use the file "kernel-headers-5.4.51-v7l+.tar.gz" in this repo. 
+4. If you have uname -r = 5.4.51-v7l+ then you can use the file "kernel-headers-5.4.51-v7l+.tar.gz" in this repo. 
 Extract/move the "usr/src/kernel-headers-5.4.51-v7l+" of the file to /usr/src.
 The softling in /lib/modules is still needed.
 
-4. Try to get the correct headers from sources. See WIP dir.. Still not successfull instructions there..
+5. Try to get the correct headers from sources. See WIP dir.. Still not successfull instructions there..
 
 
 #### install etherlab master on kernel 4.*
