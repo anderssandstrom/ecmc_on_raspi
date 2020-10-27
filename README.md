@@ -27,7 +27,46 @@ $ sudo apt install x11proto-print-dev libxmu-headers libxmu-dev libxmu6 libxpm-d
 
 ```
 
-### install etherlab master on kernel 4.*
+### etherlab
+
+
+Ensure that the sources are available and that the version is the same as currently running. 
+Otherwise you might get a "make build" error 2: linux sources missing" 
+
+```bash
+$ sudo apt install raspberrypi-kernel-headers
+
+$ uname -r
+
+# Both lib modules needs to have a $(uname -r) version:
+$ ls /usr/src/linux-headers-$(uname -r)
+$ ls /lib/modules/$(uname -r)
+
+```
+#if "No such file or directroy" for any of the two ls commands then try:
+
+1. upgrade your raspi and reinstall headers:
+```bash
+$ sudo apt update
+$ sudo apt upgrade
+$ sudo apt install raspberrypi-kernel-headers
+```
+If headers match then skip next steps.
+
+2. If existing version is rather similar to the headers in then try to make soft links and use the wrong version of headers.
+
+```bash
+$ cd /usr/src/
+$ ln -s linux-headers-<the version you have> linux-headers-$(uname -r)
+$ cd /lib/modules/
+$ ln -s <the version you have> $(uname -r)
+```
+If make build of etherlab succeeds then skip next step.
+
+3. Try to get the correct headers from sources. See WIP dir
+
+
+#### install etherlab master on kernel 4.*
 ```bash
 $ git clone https://github.com/icshwi/etherlabmaster
 $ cd etherlabmaster
@@ -47,7 +86,7 @@ $ make setup
 $ sudo systemctl start ethercat
 ```
 
-### install etherlab master on kernel 5.*
+#### install etherlab master on kernel 5.*
 
 ```bash
 $ git clone https://github.com/icshwi/etherlabmaster
