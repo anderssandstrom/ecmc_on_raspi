@@ -135,10 +135,19 @@ $ bash e3.bash req
 $ bash e3.bash -ce mod
 $ bash e3.bash -ce load
 ```
-NOTE: If trouble. On a recent release of e3 there's a "bug" i a makefile. The error message is something like: "module name needs to be lower case..."
-Please see slack e3 channel.
+NOTE: If trouble/error message:
+On a recent release of e3 there's a "bug" in a makefile (due to use of bash vs sh redirection). The error message is something like: "module name needs to be lower case..."
+Please see slack e3 channel for more info.
 Basically you need to edit the file require/configure/RULES_E3
-find "module_name_check" and comment the tree rows after with "#"
+find "module_name_check" and change it to:
+
+```
+module_name_check:
+ifneq ($(shell echo $(E3_MODULE_NAME) | grep '^[a-z_][a-z0-9_]\+$$' > /dev/null 2>&1; echo $$?),0)
+	$(error E3_MODULE_NAME '$(E3_MODULE_NAME)' is not valid. It should consist only of lowercase letters, numbers, and underscores.)
+endif
+```
+If this dont work then just comment away the tree rows after "module_name_check" with "#"
 
 ### Python partly via conda for ecmccomgui
 
