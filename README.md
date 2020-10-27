@@ -63,7 +63,11 @@ $ ln -s <the version you have> $(uname -r)
 ```
 If make build of etherlab succeeds then skip next step.
 
-3. Try to get the correct headers from sources. See WIP dir.. Still not successfull instructions there..
+3. If you have uname -r = 5.4.51-v7l+ then you can use the file "kernel-headers-5.4.51-v7l+.tar.gz" in this repo. 
+Extract/move the "usr/src/kernel-headers-5.4.51-v7l+" of the file to /usr/src.
+The softling in /lib/modules is still needed.
+
+4. Try to get the correct headers from sources. See WIP dir.. Still not successfull instructions there..
 
 
 #### install etherlab master on kernel 4.*
