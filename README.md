@@ -132,9 +132,9 @@ $ sudo systemctl start ethercat
 
 ### E3 epics 7
 ```bash
-$ git clone https://github.com/icshwi/e3 e3-7.0.4
+$ git clone https://gitlab.esss.lu.se/e3/e3.git e3-7.0.4
 $ cd e3-7.0.4
-$ ./e3_building_config.bash -r 3.3.0 -b 7.0.4 setup
+$ ./e3_building_config.bash -r 3.3.0 -b 7.0.4 -t ${HOME}/epics setup
 $ bash e3.bash base
 $ bash e3.bash req
 # note  etherlab master needs to be installed before ecmc
