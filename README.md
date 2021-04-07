@@ -247,6 +247,27 @@ The reason is that make default shell on raspi and debian is sh but on centos sh
 The redirection to NULL in module_name_check only works for bash.
 probably e3 team will update.
 
+
+### Issue with memlock and/or rt prio
+Check that user are allowed to allocate and lock memory with ulimit.
+
+```
+ulimit
+# user info ulimit
+
+# max allowed memory to lock:
+$ ulimit -l
+
+#(should be "unlimited")
+
+# can be overriden in /etc/security/limits.conf
+# check here: https://stackoverflow.com/questions/46978524/mlockall-cannot-allocate-memory
+
+# max rt prio
+$ ulimit -r
+# should be "99"
+```
+
 ## RT- Kernel
 Some notes on how to install RT kernel is found in WIP dir. RT kernel 4.? install was successfull.
 However, etherlab install still fails.
